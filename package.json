@@ -18,5 +18,8 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "devDependencies": {
     "jest": "^27.4.5"
+  },
+  "dependencies": {
+    "node-fetch": "^3.1.0"
   }
 }
