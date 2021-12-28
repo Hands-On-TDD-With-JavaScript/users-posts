@@ -1,0 +1,15 @@
+##
+# .gitignore
+##
+
+##
+# I wish Node had done like Ruby and Python that store packages
+# in a global location in the system rather than having all these
+# thousands of package copies in each project.
+#
+node_modules
+
+##
+# Asciidoctor generated files.
+#
+*.html

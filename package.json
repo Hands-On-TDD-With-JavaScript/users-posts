@@ -1,0 +1,22 @@
+{
+  "name": "users-posts",
+  "version": "0.0.1",
+  "description": "A vanilla Node.js example of testing async operations",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+  },
+  "keywords": [
+    "unit-test",
+    "tdd",
+    "node",
+    "javascript",
+    "async"
+  ],
+  "author": "",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "devDependencies": {
+    "jest": "^27.4.5"
+  }
+}

@@ -1,0 +1,130 @@
+= Users Posts - Hands-on TDD with JavaScript
+:toc: left
+:source-highlighter: pygments
+:pygments-css: class
+:icons: font
+:uri_group: https://gitlab.com/hands-on-tdd-with-javascript
+:name_group: Hands-On TDD with JavaScript
+:uri_repo_gitlab: https://gitlab.com/hands-on-tdd-with-javascript/users-posts
+:uri_repo_github: https://github.com/Hands-On-TDD-With-JavaScript/users-posts
+
+This repository is part of the link:{uri_group}[{name_group}] series on practical Test Driven Development, which focus on concepts, motivation, practical examples and general tips.
+
+[NOTE]
+====
+The link:{uri_repo_gitlab}[main repo is the one on Gitlab].
+The link:{uri_repo_github}[Github repo] is only a mirror.
+Discussion, issues, etc. should be happen on link:{uri_repo_gitlab}[Gitlab].
+====
+
+[NOTE]
+====
+Github doesn't do nice rendering of Asciidoctor (`.adoc`) files.
+Gitlab does a much better job at this.
+You are advised to read this text on link:{uri_repo_gitlab}[Gitlab].
+====
+
+== Intro
+
+This is the second iteration of the series.
+It focuses on exemplifying how to mock and test asynchronous operations in vanilla JavaScript (no framework, library, nothing).
+We just use jest itself to mock and assert on the desired results.
+
+== Goal
+
+We are going to use vanilla JavaScript with Node.js to implement a few
+functions that will fetch data from a remote API.
+
+The API provides a few  endpoints:
+
+* `GET https://example.dev/api/v1/users`
+
+* `GET https://example.dev/api/v1/users/:id`
+
+* `GET https://example.dev/api/v1/posts`
+
+* `GET https://example.dev/api/v1/posts/:id`
+
+* `GET https://example.dev/api/v1/posts/:user_id`
+
+Our job is to:
+
+* Fetch a user by ID;
+
+* Fetch a list of posts for a given user;
+
+* Return a JSON response with the user details and their posts.
+
+== Remote API Example Responses
+
+An example response for a single user:
+
+.`GET https://example.dev/api/v1/users/1`
+[source,json,lineos]
+----
+{
+  "id": 1,
+  "name": "Yoda",
+  "role": "Jedi Master",
+}
+----
+
+
+An example response for a single post:
+
+.`GET https://example.dev/api/v1/posts/:id`
+[source,json,lineos]
+----
+{
+  "id": 1,
+  "title": "There is no try",
+  "text": "Do or do not. There is no try."
+}
+----
+
+An example response for a list of posts:
+
+.`GET https://example.dev/api/v1/posts/`
+[source,json,lineos]
+----
+[
+  {
+    "id": 1,
+    "title": "There is no try",
+    "text": "Do or do not. There is no try."
+  },
+  {
+    "id": 2,
+    "title": "Fear and The Dark Side",
+    "text": "Fear is the path to the dark side. Fear leads to anger. Anger leads to hate. Hate leads to suffering."
+  }
+]
+----
+
+== Our Code's Response
+
+After we fetch an user and their posts, we merge them together and send a response to the client.
+
+.`GET https://example.dev/api/v1/posts/`
+[source,json,lineos]
+----
+{
+  "user": {
+    "id": 1,
+    "title": "There is no try"
+    "text": "Do or do not. There is no try."
+    "posts": [
+      {
+        "id": 1,
+        "title": "There is no try"
+        "text": "Do or do not. There is no try."
+      },
+      {
+        "id": 2,
+        "title": "Fear and The Dark Side"
+        "text": "Fear is the path to the dark side. Fear leads to anger. Anger leads to hate. Hate leads to suffering."
+      }
+    ]
+  }
+}
+----
