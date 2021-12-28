@@ -1,0 +1,7 @@
+{
+  "javascript.suggestionActions.enabled": false,
+  "yaml.trace.server": "verbose",
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.json": ["apispec.yml"]
+  }
+}

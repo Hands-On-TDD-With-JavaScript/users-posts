@@ -1,0 +1,28 @@
+{
+  "name": "users-posts",
+  "version": "0.0.1",
+  "description": "A vanilla Node.js example of testing async operations",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "apispec": "redoc-cli serve --watch apispec.yml"
+  },
+  "engines": {
+    "node": "16.13",
+    "npm": "8.3"
+  },
+  "keywords": [
+    "unit-test",
+    "tdd",
+    "node",
+    "javascript",
+    "async"
+  ],
+  "author": "",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "devDependencies": {
+    "jest": "^27.4.5",
+    "node-fetch": "^2.6.6",
+    "redoc-cli": "^0.13.2"
+  }
+}

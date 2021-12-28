@@ -1,0 +1,181 @@
+openapi: 3.0.2
+info:
+  version: 0.0.1
+  title: Blog API
+  description: A Blogging API
+  license:
+    name: General Public License v3
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+
+servers:
+  - url: dev.blogapi.local
+    description: The local dev server API
+
+paths:
+  /users:
+    get:
+      responses:
+
+        200:
+          description: >-
+            A list of users. The endpoint may return a 200 OK empty list
+            of users, but never a 404 status code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+              examples:
+                Empty:
+                  value: []
+                Non-Empty:
+                  value:
+                    - id: 1
+                      name: Yoda
+                      role: Jedi Master
+                    - id: 2
+                      name: Ahsoka Tano
+                      role: Padawan
+
+  /users/{userId}:
+    parameters:
+      - name: userId
+        description: The ID of the user.
+        in: path
+        required: true
+        schema:
+          type: number
+          format: int32
+        example: 1
+
+    get:
+      responses:
+
+        200:
+          description: A user with the given ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Yoda:
+                  value:
+                    id: 1
+                    name: Yoda
+                    role: Jedi Master
+                Ahsoka:
+                  value:
+                    id: 2
+                    name: Ahsoka Tano
+                    role: Padawan
+
+        404:
+          description: When a user with the given ID is not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserNotFound'
+
+  /user/{userId}/posts:
+    parameters:
+      - name: userId
+        description: The ID of the user.
+        in: path
+        required: true
+        schema:
+          type: number
+          format: int32
+        example: 1
+
+    get:
+      responses:
+
+        200:
+          description: A user with their posts, if any.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWithPosts'
+              examples:
+                User Without Posts:
+                  value:
+                    id: 1
+                    name: Master Yoda
+                    role: Jedi Master
+                    posts: []
+                User With Posts:
+                  value:
+                    id: 1
+                    name: Master Yoda
+                    role: Jedi Master
+                    posts:
+                    - id: 1
+                      user_id: 1
+                      title: Trying or Doing⃭‽
+                      text: Do, or do not. There is no try (and no catch).
+                    - id: 2
+                      user_id: 1
+                      title: Fear and The Dark Side
+                      text: >-
+                        Fear is the path to the dark side. Fear leads to anger.
+                        Anger leads to hate. Hate leads to suffering.
+
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserNotFound'
+
+components:
+  schemas:
+
+    UserNotFound:
+      properties:
+        message:
+          type: string
+          example: User with id {userId} not found.
+
+    User:
+      properties:
+        id:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: Yoda
+        role:
+          type: string
+          example: Jedi Master
+
+    Users:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
+
+    Post:
+      properties:
+        id:
+          type: number
+          example: 1
+        title:
+          type: string
+          example: "The Ways of The Force"
+        text:
+          type: string
+          example: "First, you must unlearn what you have learned."
+
+    Posts:
+      type: array
+      items:
+        $ref: '#/components/schemas/Post'
+
+    UserWithPosts:
+      allOf:
+        - $ref: '#/components/schemas/User'
+        - type: object
+          required:
+            - posts
+          properties:
+            posts:
+              $ref: '#/components/schemas/Posts'
+
