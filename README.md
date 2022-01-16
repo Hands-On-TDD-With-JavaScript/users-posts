@@ -14,11 +14,13 @@ is only a mirror. Discussion, issues, etc. should be happen on
 
 ## Table of Contents
 
+
 * [Table of Contents](#table-of-contents)
 * [Intro](#intro)
 * [Goal](#goal)
 * [Blog Service Documentation](#blog-service-documentation)
 * [Blog Service Example Responses](#blog-service-example-responses)
+  * [Anything that is not 200 or 404 responses](#anything-that-is-not-200-or-404-responses)
   * [GET user | status 404](#get-user-|-status-404)
   * [GET user | status 200](#get-user-|-status-200)
   * [GET user posts | status 404 | user not found](#get-user-posts-|-status-404-|-user-not-found)
@@ -29,6 +31,7 @@ is only a mirror. Discussion, issues, etc. should be happen on
   * [fetchUser(userId)](#fetchuser(userid))
   * [fetchPosts(userId)](#fetchposts(userid))
   * [fetchUserPosts(userId)](#fetchuserposts(userid))
+* [Local Development](#local-development)
 * [What about ES Modules‽](#what-about-es-modules‽)
 
 ## Intro
@@ -92,6 +95,22 @@ If you prefer Swagger UI, read it
 
 
 ## Blog Service Example Responses
+
+### Anything that is not 200 or 404 responses
+
+If the service responds with a status code that is not a "200 OK" or a
+"404 Not found", then we simply return the original `status` and
+`statusText` to the client.
+
+For example, a service responds with "500 Internal Server Error", we
+simply return the unmodified service response:
+
+```json
+{
+  "status": 500",
+  "statusText: "Internal Server Error",
+}
+```
 
 ### GET user | status 404
 
