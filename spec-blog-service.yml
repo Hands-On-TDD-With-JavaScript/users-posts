@@ -1,7 +1,7 @@
 openapi: 3.0.2
 info:
   version: 0.0.1
-  title: Blog API
+  title: Blog Service API
   description: A Blogging API
   license:
     name: General Public License v3
@@ -10,13 +10,19 @@ info:
 servers:
   - url: dev.blogapi.local
     description: The local dev server API
+  - url: qa.blogapi.local
+    description: The QA server API
+  - url: prod.blogapi.local
+    description: The PRD server API
 
 paths:
   /users:
     get:
       responses:
-
-        200:
+        # We never get a 404 for /users. The endpoint is always there.
+        # What can happen is for it to return an empty list of users,
+        # but never a 404.
+        '200':
           description: >-
             A list of users. The endpoint may return a 200 OK empty list
             of users, but never a 404 status code.
@@ -35,11 +41,10 @@ paths:
                     - id: 2
                       name: Ahsoka Tano
                       role: Padawan
-
   /users/{userId}:
     parameters:
       - name: userId
-        description: The ID of the user.
+        description: The user's ID.
         in: path
         required: true
         schema:
@@ -75,10 +80,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserNotFound'
 
-  /user/{userId}/posts:
+
+  /users/{userId}/posts:
     parameters:
       - name: userId
-        description: The ID of the user.
+        description: The user's ID.
         in: path
         required: true
         schema:
@@ -88,26 +94,17 @@ paths:
 
     get:
       responses:
-
         200:
-          description: A user with their posts, if any.
+          description: A user's posts, if any.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserWithPosts'
+                $ref: '#/components/schemas/Posts'
               examples:
                 User Without Posts:
-                  value:
-                    id: 1
-                    name: Master Yoda
-                    role: Jedi Master
-                    posts: []
+                  value: []
                 User With Posts:
                   value:
-                    id: 1
-                    name: Master Yoda
-                    role: Jedi Master
-                    posts:
                     - id: 1
                       user_id: 1
                       title: Trying or Doing⃭‽
@@ -118,13 +115,6 @@ paths:
                       text: >-
                         Fear is the path to the dark side. Fear leads to anger.
                         Anger leads to hate. Hate leads to suffering.
-
-        404:
-          description: User not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserNotFound'
 
 components:
   schemas:
@@ -157,6 +147,9 @@ components:
         id:
           type: number
           example: 1
+        user_id:
+          type: number
+          example: 1
         title:
           type: string
           example: "The Ways of The Force"
@@ -169,13 +162,5 @@ components:
       items:
         $ref: '#/components/schemas/Post'
 
-    UserWithPosts:
-      allOf:
-        - $ref: '#/components/schemas/User'
-        - type: object
-          required:
-            - posts
-          properties:
-            posts:
-              $ref: '#/components/schemas/Posts'
 
+# The End

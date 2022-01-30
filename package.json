@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "apispec": "redoc-cli serve --watch apispec.yml"
+    "spec-blog-service": "redoc-cli serve --port 8080 --watch spec-blog-service.yml",
+    "spec-blog-bff": "redoc-cli serve --port 8081 --watch spec-blog-bff.yml"
+
   },
   "engines": {
     "node": "16.13",
