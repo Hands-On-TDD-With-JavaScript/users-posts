@@ -31,7 +31,9 @@ For the unit tests, we’ll use [jest](https://jestjs.io/) to mock responses and
 
 ## Goal
 
-For this exercise, let's pretend there is an application called Blog Service. It provides the data the client application needs but not in an optimal structure. We want to avoid having the client perform multiple requests to this service and then format the data itself. What we want is to build a BFF (Backend for Frontend) that does the heavy lifting and provides the data ready to be consumed by the front-end application. Let's call our application Blog BFF.
+For this exercise, let's pretend there is an application called Blog Service. It provides the data the client application needs, but not in an optimal structure. We want to avoid having the client perform multiple requests to this service and then format the data itself. What we want is to build a BFF (Backend for Frontend) that does the heavy lifting and provides the data ready to be consumed by the front-end application. Let's call our application Blog BFF.
+
+In other words, the Blog Service API does not have an endpoint that allows us to fetch both the user with their posts at once. It has endpoints that responds with the users and posts individually. Our BFF needs to make these two requests and merge the user and their posts into a single object before sending it back to the client.
 
 We are going to use vanilla JavaScript with Node.js to implement a few functions that will fetch JSON data from a remote API and prepare it for the client's consumption.
 
