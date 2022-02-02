@@ -6,20 +6,19 @@ This repository is part of the [Hands-On TDD with JavaScript](https://gitlab.com
 
 ## Table of Contents
 
-- [Users Posts - Hands-on TDD with JavaScript](#users-posts-hands-on-tdd-with-javascript)
-  - [Table of Contents](#table-of-contents)
-  - [Intro](#intro)
-  - [Goal](#goal)
-  - [API Endpoints Documentation](#api-endpoints-documentation)
-  - [Blog Service Responses](#blog-service-responses)
-    - [Anything that is not 200 or 404 responses](#anything-that-is-not-200-or-404-responses)
-  - [Blog BFF Example Response](#blog-bff-example-response)
-  - [Functionality to Implement](#functionality-to-implement)
-    - [fetchUser(userId)](#fetchuseruserid)
-    - [fetchPosts(userId)](#fetchpostsuserid)
-    - [fetchUserPosts(userId)](#fetchuserpostsuserid)
-  - [Local Development](#local-development)
-  - [What about ES Modules‽](#what-about-es-modules)
+* [Table of Contents](#table-of-contents)
+* [Intro](#intro)
+* [Goal](#goal)
+* [API Endpoints Documentation](#api-endpoints-documentation)
+* [Blog Service Responses](#blog-service-responses)
+* [Blog BFF Example Response](#blog-bff-example-response)
+* [Functionality to Implement](#functionality-to-implement)
+  * [fetchUser(userId)](#fetchuser(userid))
+  * [fetchPosts(userId)](#fetchposts(userid))
+  * [fetchUserPosts(userId)](#fetchuserposts(userid))
+* [Local Development](#local-development)
+* [What about ES Modules‽](#what-about-es-modules‽)
+* [Cheat Sheet](#cheat-sheet)
 
 ## Intro
 
@@ -173,3 +172,8 @@ The problem is that `jest.mock()` does not work yet for ES Modules. It simply fa
 
 Because I didn’t want to introduce complex Webpack and Babel setup, I have chosen to go with good old CommonJS modules for this project for now.
 
+
+
+## Cheat Sheet
+
+There are some examples in the [cheat sheet](./CHEATSHEET.md) so we can consult and use as a reference as we progress through this exercise.
