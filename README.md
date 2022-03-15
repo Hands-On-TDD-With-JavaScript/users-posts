@@ -26,13 +26,14 @@ This is the second iteration of the series. It focuses on exemplifying how to mo
 
 We are going to use [node-fetch](https://github.com/node-fetch/node-fetch) because it mimics the [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API), which means most of what we learn here (Node.js) regarding testing asynchronous operations is also applicable when working in the browser environment.
 
-For the unit tests, we’ll use [jest](https://jestjs.io/) to mock responses and assert on the desired results.
+For the unit tests, we’ll use [jest](https://jestjs.io/) to mock responses and assert on the desired results, besides also working as a test runner.
+
 
 ## Goal
 
-For this exercise, let's pretend there is an application called Blog Service. It provides the data the client application needs, but not in an optimal structure. We want to avoid having the client perform multiple requests to this service and then format the data itself. What we want is to build a BFF (Backend for Frontend) that does the heavy lifting and provides the data ready to be consumed by the front-end application. Let's call our application Blog BFF.
+For this exercise, let's pretend there is a back-end application called Blog Service. It provides the data the client application needs, but not in an optimal structure. We want to avoid having the client perform multiple requests to this service and then format the data itself. What we want is to build a BFF (Back-end for Front-end) that does the heavy lifting and provides the data ready to be consumed by the front-end application. Let's call our application Blog BFF.
 
-In other words, the Blog Service API does not have an endpoint that allows us to fetch both the user with their posts at once. It has endpoints that responds with the users and posts individually. Our BFF needs to make these two requests and merge the user and their posts into a single object before sending it back to the client.
+The Blog Service API does not have an endpoint that allows us to fetch both the user with their posts at once. It has endpoints that responds with the users and posts individually. Our BFF needs to make these two requests and merge the user and their posts into a single object before sending it back to the client.
 
 We are going to use vanilla JavaScript with Node.js to implement a few functions that will fetch JSON data from a remote API and prepare it for the client's consumption.
 
@@ -45,7 +46,7 @@ Our job is to:
 
 - Fetch a user by ID;
 - Fetch a list of posts for a user given the user ID;
-- Craft the JSON object which includes user details and their posts.
+- Craft the JSON object which includes user details and their posts;
 
 ## API Endpoints Documentation
 
@@ -84,8 +85,6 @@ For example, if a service responds with "500 Internal Server Error", we simply r
   "statusText": "Internal Server Error",
 }
 ```
-
-
 
 ## Blog BFF Example Response
 
@@ -159,19 +158,18 @@ To start implementing the the code, run:
 $ nvm use && npm run test
 ```
 
-And may the source be with you.
+May the source be with you.
 
 ## What about ES Modules‽
 
-Yes, [Jest supports ES Modules](https://jestjs.io/docs/ecmascript-modules) but [not 100%](https://github.com/facebook/jest/issues/10025) (at least os of Jan 2022).
+Yes, [Jest supports ES Modules](https://jestjs.io/docs/ecmascript-modules) but [not 100%](https://github.com/facebook/jest/issues/10025) (at least as of March 2022).
 
 > Please note that we currently don’t support jest.mock in a clean way in ESM, but that is something we intend to add proper support for in the future.
 > — jest docs on ECMAScript Modules
 
 The problem is that `jest.mock()` does not work yet for ES Modules. It simply fails to mock, and methods like `mockImplementation()` and `mockResolvedValue()` are not present on the instances of the mocked dependencies.
 
-Because I didn’t want to introduce complex Webpack and Babel setup, I have chosen to go with good old CommonJS modules for this project for now.
-
+Because we didn’t want to introduce complex Webpack and Babel setup, we have chosen to go with good old CommonJS modules for this project for now.
 
 
 ## Cheat Sheet
